@@ -2,6 +2,7 @@ import { load } from 'cheerio';
 
 import type { Route } from '@/types';
 import ofetch from '@/utils/ofetch';
+import { parseDate } from '@/utils/parse-date';
 
 export const route: Route = {
     path: '/chrono',
@@ -42,7 +43,7 @@ export const route: Route = {
             const link = item.slug.startsWith('http') ? item.slug : `${baseUrl}${item.slug}`;
 
             // Gestion de la date : Le JSON fournit un timestamp UNIX (en secondes)
-            const pubDate = new Date(item.date.publish_at.timestamp * 1000);
+            const pubDate = parseDate(item.date.publish_at.timestamp * 1000);
 
             return {
                 title: item.title,
